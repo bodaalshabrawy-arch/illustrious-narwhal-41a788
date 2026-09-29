@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salma & Abdullah ✨</title>
+  <style>
+    :root {
+      --bg-color: #0d0814;
+      --card-bg: rgba(255, 255, 255, 0.07);
+      --accent-color: #ff4b72;
+      --text-color: #ffffff;
+      --subtext-color: #e0d0f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      padding-bottom: 90px;
+    }
+
+    /* Floating Hearts Background */
+    .heart-particle {
+      position: fixed;
+      color: rgba(255, 75, 114, 0.4);
+      font-size: 20px;
+      animation: floatUp 6s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Lock Screen */
+    #lockScreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 90vh;
+      text-align: center;
+    }
+
+    .floating-img-container {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--accent-color);
+      box-shadow: 0 0 20px var(--accent-color);
+      overflow: hidden;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .floating-img-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .lock-title {
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--subtext-color);
+    }
+
+    .pass-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pass-inputs input {
+      width: 90px;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      text-align: center;
+      font-size: 1.1rem;
+      outline: none;
+    }
+
+    .btn-main {
+      background: linear-gradient(45deg, #ff4b72, #ff7597);
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(255,75,114,0.4);
+      cursor: pointer;
+    }
+
+    /* Main Content */
+    #mainContent {
+      display: none;
+      animation: fadeIn 1s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .header-text {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .header-text h1 {
+      font-size: 1.8rem;
+      color: var(--accent-color);
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+    }
+
+    /* Counter */
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .counter-item {
+      background: rgba(0,0,0,0.3);
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    .counter-item span {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+
+    .counter-item label {
+      font-size: 0.8rem;
+      color: var(--subtext-color);
+    }
+
+    /* Special Buttons */
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      margin: 8px 0;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 0.95rem;
+      text-align: right;
+      cursor: pointer;
+    }
+
+    /* Image Gallery */
+    .gallery-item {
+      margin-bottom: 25px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+    }
+
+    .gallery-caption {
+      padding: 12px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: var(--subtext-color);
+    }
+
+    /* Modal / Popups */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #1a1028;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 400px;
+      text-align: center;
+      border: 1px solid var(--accent-color);
+      box-shadow: 0 0 20px rgba(255,75,114,0.3);
+    }
+
+    .modal-content p {
+      margin: 15px 0;
+      line-height: 1.6;
+      color: #f0e0ff;
+    }
+
+    /* Audio Player Floating Control */
+    .audio-player {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 450px;
+      background: rgba(255,75,114,0.25);
+      backdrop-filter: blur(15px);
+      border-radius: 30px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255,75,114,0.4);
+      z-index: 90;
+    }
+
+    .audio-btn {
+      background: var(--accent-color);
+      border: none;
+      color: #fff;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Lock Screen -->
+    <div id="lockScreen">
+      <div class="floating-img-container">
+        <img src="1000060693.jpg" alt="Salma & Abdullah">
+      </div>
+      <div class="lock-title">كلمه السر عيد ميلادك ياقلبي♥️</div>
+      <div class="pass-inputs">
+        <input type="number" id="dayInput" placeholder="يوم">
+        <input type="number" id="monthInput" placeholder="شهر">
+      </div>
+      <button class="btn-main" onclick="checkPass()">افتحي يا حبيبتي 💖</button>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent">
+      
+      <div class="header-text">
+        <h1>Salma & Abdullah ✨</h1>
+        <p>حكايتنا أجمل ذكريات في حياتي 💖</p>
+      </div>
+
+      <!-- Counter Card -->
+      <div class="card">
+        <h3>بداية حكايتنا 17/11/2025 💖</h3>
+        <p style="font-size:0.85rem; color:#ccc; margin-top:5px;">بقالنا مع بعض:</p>
+        <div class="counter-grid">
+          <div class="counter-item"><span id="c-years">0</span><label>سنة</label></div>
+          <div class="counter-item"><span id="c-months">0</span><label>شهر</label></div>
+          <div class="counter-item"><span id="c-days">0</span><label>يوم</label></div>
+          <div class="counter-item"><span id="c-hours">0</span><label>ساعة</label></div>
+          <div class="counter-item"><span id="c-minutes">0</span><label>دقيقة</label></div>
+          <div class="counter-item"><span id="c-seconds">0</span><label>ثانية</label></div>
+        </div>
+      </div>
+
+      <!-- Engagement Card -->
+      <div class="card" style="border-color: rgba(255,215,0,0.3);">
+        <h3 style="color:#ffd700;">يوم خطوبتنا 💍 14/10/2025</h3>
+        <p style="margin-top:8px; font-size:0.9rem;">اليوم اللي وعدتك فيه قدام الدنيا كلها إنك هتكوني شريكة عمري والأميرة بتاعتي طول العمر 💖✨</p>
+      </div>
+
+      <!-- Interactive Boxes -->
+      <div style="margin: 25px 0;">
+        <button class="action-btn" onclick="openModal('افتحيها لما أوحشك🥺🫂', 'افتكري دايماً إنك أقرب حد لقلبي ومافيش حاجة تقدر تبعدك عن تفكيري لحظة واحدة 💖🫂')">افتحيها لما أوحشك🥺🫂</button>
+        <button class="action-btn" onclick="openModal('افتحيها لما ازعلك🌹🥺', 'زعلِك غالي عليا ومستحيل أستحمل أشوفك متضايقة، أنا آسف يا أجمل حاجة في حياتي 🌹🥺')">افتحيها لما ازعلك🌹🥺</button>
+        <button class="action-btn" onclick="openModal('افتحيها قبل متنامي🫶🩷', 'نامي وأنتي متأكدة إن في حد بيفكر فيكي وبيحبك من كل قلبه، وبيدعي ربنا تكوني دايمامبسوطة وفي أفضل حال.. تصبحي على خير يا بنوتي 🫶🩷')">افتحيها قبل متنامي🫶🩷</button>
+      </div>
+
+      <!-- Gallery -->
+      <div class="card">
+        <h3>ذكرياتنا الجميلة 📸</h3>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000077592.jpg" alt="Memory">
+        <div class="gallery-caption">ضحكتك دي هي اللي بتنور أيامي وترد فيا الروح 💖✨</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000062890.jpg" alt="Memory">
+        <div class="gallery-caption">أجمل لحظة لما أكون باصص في عينيكي وحاسس إن العالم كله في أيدي 🥺❤️</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000060798.png" alt="Memory">
+        <div class="gallery-caption">كل ثانية جمبك بحس فيها بجمال الدنيا وراحة البال ✨🤍</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000060691.jpg" alt="Memory">
+        <div class="gallery-caption">ربنا يديمك في حياتي يا أجمل نعمة رزقني بيها ربنا 🌸💖</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000060682.jpg" alt="Memory">
+        <div class="gallery-caption">الضحكة اللي بتطلع من القلب معاكي مافيش زيها في الدنيا 🥹❤️</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000035076.jpg" alt="Memory">
+        <div class="gallery-caption">حبيبتي وأميرتي الأولى والأخيرة ✨🌹</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000027828.jpg" alt="Memory">
+        <div class="gallery-caption">إطلالتك المميزة اللي خطفت قلبي من أول يوم 💖✨</div>
+      </div>
+
+      <div class="gallery-item">
+        <img src="1000027825.jpg" alt="Memory">
+        <div class="gallery-caption">دائماً مشرقة وبتحلي أي مكان تكوني فيه 🌸🫶</div>
+      </div>
+
+      <button class="btn-main" style="width: 100%; margin-top: 20px;" onclick="openModal('رسالة من قلبي لـ Salma 💖', 'بنوتي بحبك اوي يالوزا.. وربنا يخليكي ليا وما يحرمني منك أبداً، ويارب العمر كله نفضل مع بعض سند وفي ظهر بعض، بحبك بجد ومستعد أعمل أي حاجة في الدنيا علشان أشوف ابتسامتك دايماً 💖✨')">رسالة ختامية ليكي 💌</button>
+
+    </div>
+
+  </div>
+
+  <!-- Popup Modal -->
+  <div id="customModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalTitle" style="color: var(--accent-color);"></h3>
+      <p id="modalBody"></p>
+      <button class="btn-main" onclick="closeModal()">إغلاق</button>
+    </div>
+  </div>
+
+  <!-- Floating Audio Player -->
+  <div id="audioPlayer" class="audio-player" style="display:none;">
+    <div style="font-size:0.85rem;">
+      <strong style="display:block;">ما تيجي نركن الزعل 🎵</strong>
+      <span style="color:#ddd; font-size:0.75rem;">شغالة الآن...</span>
+    </div>
+    <button class="audio-btn" onclick="toggleAudio()">⏸</button>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://server8.mp3quran.net/mategy.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // Password Check & Audio Trigger
+    function checkPass() {
+      const day = document.getElementById('dayInput').value.trim();
+      const month = document.getElementById('monthInput').value.trim();
+
+      if(day === '12' && month === '3') {
+        // Show Content
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('audioPlayer').style.display = 'flex';
+        
+        // Start Audio Immediately on User Click Action
+        const audio = document.getElementById('bgMusic');
+        audio.currentTime = 25; // يبدأ مباشرة من مقطع "يالي الغرام لغيرك حرام"
+        
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.log("Autoplay was prevented, will play on next interaction");
+          });
+        }
+
+        // Start Counter
+        startCounter();
+      } else {
+        alert('كلمة السر غير صحيحة يا قلبي! جربي تاني 😉');
+      }
+    }
+
+    // Counter Implementation
+    function startCounter() {
+      const startDate = new Date('2025-11-17T00:00:00');
+      
+      setInterval(() => {
+        const now = new Date();
+        const diff = now - startDate;
+
+        if(diff > 0) {
+          const seconds = Math.floor((diff / 1000) % 60);
+          const minutes = Math.floor((diff / 1000 / 60) % 60);
+          const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+          const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30);
+          const months = Math.floor((diff / (1000 * 60 * 60 * 24 * 30.44)) % 12);
+          const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+
+          document.getElementById('c-years').innerText = years;
+          document.getElementById('c-months').innerText = months;
+          document.getElementById('c-days').innerText = days;
+          document.getElementById('c-hours').innerText = hours;
+          document.getElementById('c-minutes').innerText = minutes;
+          document.getElementById('c-seconds').innerText = seconds;
+        }
+      }, 1000);
+    }
+
+    // Modal Control
+    function openModal(title, text) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalBody').innerText = text;
+      document.getElementById('customModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').style.display = 'none';
+    }
+
+    // Audio Play/Pause Button
+    function toggleAudio() {
+      const audio = document.getElementById('bgMusic');
+      const btn = document.querySelector('.audio-btn');
+      if (audio.paused) {
+        audio.play();
+        btn.innerText = '⏸';
+      } else {
+        audio.pause();
+        btn.innerText = '▶';
+      }
+    }
+
+    // Background Hearts Animation
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart-particle');
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 6000);
+    }, 400);
+  </script>
+</body>
+</html>
+
+
+
